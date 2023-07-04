@@ -13,7 +13,7 @@ impl FromStr for Command {
     type Err = ParseCommandError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        match s.split_once(" ") {
+        match s.split_once(' ') {
             Some(("forward", x)) => Ok(Self::Forward { n: x.parse().unwrap() }),
             Some(("up", x)) => Ok(Self::Up { n: x.parse().unwrap() }),
             Some(("down", x)) => Ok(Self::Down { n: x.parse().unwrap() }),
@@ -41,7 +41,7 @@ fn handle_part_2(command: Command, (horizontal, depth, aim): (isize, isize, isiz
 
 pub fn part1(input: &str) -> isize {
     let coords = input.lines()
-        .map(|line| Command::from_str(line))
+        .map(Command::from_str)
         .fold((0, 0), |coords, command| {
             handle_part_1(command.unwrap(), coords)
         });
@@ -50,7 +50,7 @@ pub fn part1(input: &str) -> isize {
 
 pub fn part2(input: &str) -> isize {
     let coords = input.lines()
-        .map(|line| Command::from_str(line))
+        .map(Command::from_str)
         .fold((0, 0, 0), |coords, command| {
             handle_part_2(command.unwrap(), coords)
         });
